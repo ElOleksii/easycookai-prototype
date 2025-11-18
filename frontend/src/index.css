@@ -1,0 +1,12 @@
+@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Epilogue:wght@100..900&family=Montserrat:wght@100..900&display=swap");
+
+@theme {
+  --font-montserrat: "Montserrat", sans-serif;
+  --font-epilogue: "Epilogue", sans-serif;
+
+  --color-brown: #74512d;
+  --color-darkBrown: #543310;
+  --color-mainBackground: #f8f4e1;
+  --color-additionBackground: #ded0b6;
+}
