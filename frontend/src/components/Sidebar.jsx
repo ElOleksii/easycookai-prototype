@@ -4,15 +4,30 @@ import { CiSettings } from "react-icons/ci";
 import { useUser } from "../storage/UserContext";
 import { supabase } from "../api/supabaseClient";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Sidebar = ({ isOpen, onClose }) => {
-  const { user } = useUser();
+  const { setUser } = useUser();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (window.location.hash.includes("access_token")) {
+      window.history.replaceState(null, "", window.location.pathname);
+    }
+  }, []);
+
   const handleLogout = async () => {
-    await supabase.auth.signOut();
-    onClose();
-    navigate("/auth");
+    const { error } = await supabase.auth.signOut();
+    if (!error) {
+      onClose();
+      setUser(null);
+      navigate("/auth");
+    } else {
+      console.error("Logout error:", error.message);
+    }
   };
+
+  const { user } = useUser();
 
   return (
     <>

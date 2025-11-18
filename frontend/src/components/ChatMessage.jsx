@@ -4,7 +4,7 @@ const ChatMessage = ({ sender, text }) => {
   return (
     <div className={`flex ${isUser ? "justify-end" : "justify-start"} mb-3`}>
       <div
-        className={`p-3 rounded-2xl max-w-[80%] whitespace-pre-line ${
+        className={`p-3 rounded-2xl max-w-[80%] whitespace-pre-wrap break-words overflow-x-hidden ${
           isUser
             ? "bg-darkBrown text-mainBackground rounded-br-none"
             : "bg-additionBackground text-darkBrown rounded-bl-none"

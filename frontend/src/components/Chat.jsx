@@ -41,12 +41,12 @@ const Chat = () => {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="flex-1 overflow-y-auto p-4 space-y-3">
+      <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 flex flex-col gap-3 scrollbar-custom">
         {messages.map((msg, i) => (
           <ChatMessage key={i} sender={msg.sender} text={msg.text} />
         ))}
         {loading && <ChatMessage sender="ai" text="Готую рецепти..." />}
-        <div ref={messagesEndRef} /> {/* Тут скролиться */}
+        <div ref={messagesEndRef} />
       </div>
 
       <div className="flex-none">

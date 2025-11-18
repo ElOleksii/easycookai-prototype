@@ -30,7 +30,7 @@ const Input = ({ placeholder, type = "text", value, setValue }) => (
 const SocialButton = ({ icon, onClick }) => (
   <button
     onClick={onClick}
-    className="w-12 cursor-pointer h-12 bg-additionBackground text-darkBrown rounded-full flex items-center justify-center shadow-sm hover:scale-105 transition-transform"
+    className="w-12 cursor-pointer h-12 bg-additionBackground text-darkBrown rounded-full flex items-center justify-center shadow-sm  transition-transform"
   >
     {icon}
   </button>
@@ -92,7 +92,11 @@ export default function Auth() {
     <div className="flex flex-col items-center justify-center h-full w-full px-8 animate-in fade-in duration-500">
       <div className="mb-12 flex flex-col items-center">
         <div className="relative w-24 h-24 mb-4">
-          <img src={EasyCookAILogo} alt="logo" className="w-full h-full" />
+          <img
+            src={"/icons/easycooklogo.svg"}
+            alt="logo"
+            className="w-full h-full"
+          />
         </div>
         <h1 className="text-3xl text-darkBrown font-montserrat font-bold tracking-wide">
           EasyCookAI
@@ -162,7 +166,7 @@ export default function Auth() {
     <div className="flex flex-col h-full w-full px-8 pt-12 animate-in slide-in-from-right duration-300">
       <button
         onClick={goBack}
-        className="self-start cursor-pointer text-darkBrown mb-8 hover:scale-110 transition-transform"
+        className="self-start cursor-pointer text-darkBrown mb-8  transition-transform"
       >
         <FaArrowLeft size={32} />
       </button>
@@ -214,7 +218,7 @@ export default function Auth() {
       {currentView !== "welcome" && (
         <button
           onClick={goBack}
-          className="absolute top-4 left-4 z-50 cursor-pointer text-darkBrown hover:scale-110 transition-transform"
+          className="absolute top-4 left-4 z-50 cursor-pointer text-darkBrown transition-transform"
         >
           <FaArrowLeft size={32} />
         </button>

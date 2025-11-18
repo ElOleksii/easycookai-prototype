@@ -5,7 +5,7 @@ const MainLayout = ({ children }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div className="h-screen w-screen bg-mainBackground font-montserrat text-darkBrown flex">
+    <div className="h-screen w-screen bg-mainBackground font-montserrat text-darkBrown flex overflow-x-hidden">
       <Sidebar isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
 
       <main className="flex-1 flex flex-col">
