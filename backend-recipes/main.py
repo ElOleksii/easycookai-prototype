@@ -1,13 +1,14 @@
 import json
-
+import os
 import uvicorn
 from fastapi import FastAPI, HTTPException
 from google.genai import Client
 from google.genai.errors import ClientError
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
+from dotenv import load_dotenv
 
-
+load_dotenv()
 app = FastAPI()
 
 app.add_middleware(
@@ -19,7 +20,7 @@ app.add_middleware(
 )
 
 
-client = Client(api_key="AIzaSyDLEZ7nyNw_LxunRXJ5-M28vlTNFUVtQtM")
+client = Client(api_key=os.environ["GOOGLE_API_KEY"])
 
 class Request(BaseModel):
     text: str
@@ -63,5 +64,7 @@ async def generate(request: Request) -> Response:
         raise HTTPException(status_code=e.code, detail=e.details)
 
 
-if "__main__" == __name__:
-    uvicorn.run(app=app, port=8000, host="127.0.0.1")
+if __name__ == "__main__":
+    import os
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
