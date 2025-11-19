@@ -4,17 +4,11 @@ import { CiSettings } from "react-icons/ci";
 import { useUser } from "../storage/UserContext";
 import { supabase } from "../api/supabaseClient";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 const Sidebar = ({ isOpen, onClose }) => {
   const { setUser } = useUser();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (window.location.hash.includes("access_token")) {
-      window.history.replaceState(null, "", window.location.pathname);
-    }
-  }, []);
+  const { user } = useUser();
 
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
@@ -22,12 +16,8 @@ const Sidebar = ({ isOpen, onClose }) => {
       onClose();
       setUser(null);
       navigate("/auth");
-    } else {
-      console.error("Logout error:", error.message);
     }
   };
-
-  const { user } = useUser();
 
   return (
     <>
@@ -54,10 +44,19 @@ const Sidebar = ({ isOpen, onClose }) => {
           </div>
 
           <nav className="flex flex-col flex-1">
-            <MenuItem icon={<BiBook />} text="Генерація" />
-            <MenuItem icon={<PiCookingPotDuotone />} text="Збережене" />
-            <MenuItem icon={<BiHistory />} text="Історія" />
-            <MenuItem icon={<CiSettings />} text="Налаштування" />
+            <MenuItem
+              icon={<BiBook />}
+              text="Генерація"
+              to="/"
+              onClose={onClose}
+            />
+            <MenuItem
+              disabled
+              icon={<PiCookingPotDuotone />}
+              text="Збережене"
+            />
+            <MenuItem disabled icon={<BiHistory />} text="Історія" />
+            <MenuItem disabled icon={<CiSettings />} text="Налаштування" />
 
             {user && (
               <button
@@ -74,11 +73,30 @@ const Sidebar = ({ isOpen, onClose }) => {
   );
 };
 
-const MenuItem = ({ icon, text }) => (
-  <button className="flex items-center gap-4 px-6 py-4 border-b border-darkBrown/10 hover:bg-black/5 transition active:bg-black/10 text-left">
-    <span className="w-6 h-6 flex items-center justify-center">{icon}</span>
-    <span className="font-medium text-sm">{text}</span>
-  </button>
-);
+const MenuItem = ({ icon, text, to, disabled = false, onClose }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (disabled) return;
+    if (to) navigate(to);
+    if (onClose) onClose();
+  };
+
+  return (
+    <button
+      onClick={handleClick}
+      disabled={disabled}
+      className={`flex items-center gap-4 px-6 py-4 border-b border-darkBrown/10 text-left transition
+        ${
+          disabled
+            ? "opacity-50 cursor-not-allowed"
+            : "hover:bg-black/5 active:bg-black/10 cursor-pointer"
+        }`}
+    >
+      <span className="w-6 h-6 flex items-center justify-center">{icon}</span>
+      <span className="font-medium text-sm">{text}</span>
+    </button>
+  );
+};
 
 export default Sidebar;

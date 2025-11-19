@@ -164,13 +164,6 @@ export default function Auth() {
 
   const RegisterScreen = (
     <div className="flex flex-col h-full w-full px-8 pt-12 animate-in slide-in-from-right duration-300">
-      <button
-        onClick={goBack}
-        className="self-start cursor-pointer text-darkBrown mb-8  transition-transform"
-      >
-        <FaArrowLeft size={32} />
-      </button>
-
       <div className="space-y-4 w-full max-w-xs mx-auto">
         <Input
           placeholder="Ім'я"
